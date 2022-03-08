@@ -60,11 +60,9 @@ func primeReduction(number int64, count int) string {
 	if !isPrimeNumber(number) {
 		var sum int64
 
-		// Get the number of 2s that divide n
-		number, sum = factoringBy(number, sum, 2)
-		number, sum = factoringByOdds(number, sum)
+		factoringBy(&number, &sum, 2)
+		factoringByOdds(&number, &sum)
 
-		// This condition is to handle the case when 'number' is a prime number
 		if number > 2 {
 			sum += number
 		}
@@ -75,20 +73,17 @@ func primeReduction(number int64, count int) string {
 	return fmt.Sprintf("%d %d\n", number, count)
 }
 
-func factoringBy(number int64, sum int64, factor int64) (int64, int64) {
-	for number%factor == 0 {
-		number /= factor
-		sum += factor
+func factoringBy(number *int64, sum *int64, factor int64) {
+	for *number%factor == 0 {
+		*number /= factor
+		*sum += factor
 	}
-	return number, sum
 }
 
-func factoringByOdds(number int64, sum int64) (int64, int64) {
-	// number must be odd at this point. so we can skip even elements
-	for i := int64(3); i*i <= number; i += 2 {
-		number, sum = factoringBy(number, sum, i)
+func factoringByOdds(number *int64, sum *int64) {
+	for i := int64(3); i*i <= *number; i += 2 {
+		factoringBy(number, sum, i)
 	}
-	return number, sum
 }
 
 func isPrimeNumber(number int64) bool {
