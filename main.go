@@ -13,7 +13,6 @@ const (
 )
 
 func main() {
-	executeFuncWithTimeTrack("Fuerback", FuerbackFromFile)
 	executeFuncWithTimeTrack("Nuno", NunoFromFile)
 	executeFuncWithTimeTrack("Eratosthenes", EratosthenesFromFile)
 }
